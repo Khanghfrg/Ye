@@ -1,0 +1,80 @@
+local player = game.Players.LocalPlayer
+local camera = game.Workspace.CurrentCamera
+
+local gui = Instance.new("ScreenGui")
+gui.Parent = player.PlayerGui
+
+local function createTextLabel(parent, position, text)
+    local label = Instance.new("TextLabel")
+    label.Parent = parent
+    label.Position = position
+    label.Size = UDim2.new(0, 200, 0, 20)
+    label.Text = text
+    label.TextColor3 = Color3.new(0, 0, 0) -- Black color
+    label.BackgroundTransparency = 0
+    label.BackgroundColor3 = Color3.new(1, 1, 1) -- White background
+    label.BorderSizePixel = 0
+    return label
+end
+
+local function createButton(parent, position, text, callback)
+    local button = Instance.new("TextButton")
+    button.Parent = parent
+    button.Position = position
+    button.Size = UDim2.new(0, 200, 0, 20)
+    button.Text = text
+    button.TextColor3 = Color3.new(0, 0, 0) -- Black color
+    button.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5) -- Grey background
+    button.BorderSizePixel = 0
+    button.MouseButton1Click:Connect(callback)
+    return button
+end
+
+-- Create title label
+local titleLabel = createTextLabel(gui, UDim2.new(0, 10, 0, 0), "🌪️Status🌪️")
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.TextSize = 18
+
+local speedText = createTextLabel(gui, UDim2.new(0, 10, 0, 30), "Speed: ")
+local jumpPowerText = createTextLabel(gui, UDim2.new(0, 10, 0, 50), "Jump Power: ")
+local healthText = createTextLabel(gui, UDim2.new(0, 10, 0, 70), "Health: ")
+local heightText = createTextLabel(gui, UDim2.new(0, 10, 0, 90), "Height: ")
+local damageText = createTextLabel(gui, UDim2.new(0, 10, 0, 110), "Damage Received: ")
+local gravityText = createTextLabel(gui, UDim2.new(0, 10, 0, 130), "Gravity: ")
+
+local function espAllPlayers()
+    -- Loop through each player in the game
+    for _, otherPlayer in ipairs(game.Players:GetPlayers()) do
+        -- Check if the player is not the local player
+        if otherPlayer ~= player and otherPlayer.Character then
+            -- Create an ESP box around the player
+            local character = otherPlayer.Character
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            local head = character:FindFirstChild("Head")
+            if humanoidRootPart and head then
+                local distance = (humanoidRootPart.Position - camera.CFrame.Position).Magnitude
+                local espBox = Instance.new("BoxHandleAdornment")
+                espBox.Size = Vector3.new(2, 20, 2) -- Make the column longer
+                espBox.Adornee = head
+                espBox.Color3 = Color3.new(0, 1, 0) -- Neon green color
+                espBox.ZIndex = 1
+                espBox.AlwaysOnTop = true
+                espBox.Parent = character
+            end
+        end
+    end
+end
+
+local espButton = createButton(gui, UDim2.new(0, 10, 0, 150), "ESP All Players", espAllPlayers)
+
+while true do
+    -- Update GUI elements
+    speedText.Text = "Speed: " .. math.floor(player.Character.Humanoid.WalkSpeed)
+    jumpPowerText.Text = "Jump Power: " .. player.Character.Humanoid.JumpPower
+    healthText.Text = "Health: " .. math.floor(player.Character.Humanoid.Health)
+    heightText.Text = "Height: " .. math.floor(player.Character.HumanoidRootPart.Position.Y - player.Character.HumanoidRootPart.Size.Y / 2)
+    damageText.Text = "Damage Received: " .. math.floor(player.Character.Humanoid.MaxHealth - player.Character.Humanoid.Health) .. "%"
+    gravityText.Text = "Gravity: " .. game.Workspace.Gravity
+
+    wait(0.01) -- Wait before updating again
+end
