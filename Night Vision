@@ -1,0 +1,92 @@
+-- Variable to track cooldown
+local onCooldown = false
+
+-- Create a ScreenGui object
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Function to create and remove the flashlight effect and green overlay
+local function flashlightEffect()
+    -- Create a green overlay with transparency
+    local overlay = Instance.new("Frame")
+    overlay.Size = UDim2.new(1, 0, 1, 0)
+    overlay.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for the overlay
+    overlay.BackgroundTransparency = 0.5 -- Set transparency to 0.5
+    overlay.Parent = gui
+    overlay.ZIndex = 10 -- Ensure it appears above other GUI elements
+    
+    -- Find the character's HumanoidRootPart
+    local character = game.Players.LocalPlayer.Character
+    if character then
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            -- Create a PointLight object
+            local flashlight = Instance.new("PointLight")
+            flashlight.Color = Color3.new(0, 1, 0) -- Green color for illumination
+            flashlight.Range = 1000 -- Adjust the range of illumination to 1000 studs
+            flashlight.Brightness = 5 -- Adjust the brightness of the light as needed
+            flashlight.Parent = humanoidRootPart
+            flashlight.Enabled = true -- Turn on the flashlight
+            -- Remove the flashlight after a certain time
+            delay(4, function()
+                flashlight:Destroy()
+            end)
+        end
+    end
+    
+    -- Remove the overlay after a certain time
+    delay(4, function()
+        overlay:Destroy()
+    end)
+end
+
+-- Create a TextButton object with the name "Night Vision" and green background color
+local button = Instance.new("TextButton")
+button.Text = "Night Vision"
+button.Size = UDim2.new(0, 100, 0, 50)
+button.Position = UDim2.new(0, 10, 0, 10) -- Positioning at the top-left corner with a slight margin
+button.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for the button background
+button.Parent = gui
+
+-- Function to execute when the button is clicked
+local function onClicked()
+    if onCooldown then
+        return -- Do nothing if the button is on cooldown
+    end
+    
+    print("Button clicked!")
+    -- Change button's background color to yellow
+    button.BackgroundColor3 = Color3.fromRGB(255, 255, 0)
+    -- Call the function to create and remove the flashlight effect and green overlay
+    flashlightEffect()
+    
+    -- Put the button on cooldown
+    onCooldown = true
+    local startTime = tick() -- Record the time when the cooldown starts
+    
+    -- Update cooldown text
+    local cooldownText = Instance.new("TextLabel")
+    cooldownText.Text = "Cooldown: 10"
+    cooldownText.Size = UDim2.new(0, 100, 0, 20)
+    cooldownText.Position = UDim2.new(1, -110, 0, 10) -- Positioning at the top-right corner with a slight margin
+    cooldownText.AnchorPoint = Vector2.new(1, 0)
+    cooldownText.BackgroundTransparency = 1
+    cooldownText.TextColor3 = Color3.new(0, 0, 0) -- Black color for the cooldown text
+    cooldownText.Font = Enum.Font.SourceSans
+    cooldownText.TextSize = 18
+    cooldownText.Parent = gui
+    
+    -- Countdown from 10 seconds to 0 seconds
+    for i = 10, 0, -1 do
+        cooldownText.Text = "Cooldown: " .. i
+        wait(1)
+    end
+    
+    -- Remove cooldown text
+    cooldownText:Destroy()
+    
+    onCooldown = false
+end
+
+-- Connect the onClicked function to the button's MouseButton1Click event
+button.MouseButton1Click:Connect(onClicked)
