@@ -1,0 +1,115 @@
+-- Create a ScreenGui object
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Create a TextLabel for the title
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "TitleLabel"
+titleLabel.Text = "⏩Fast Hack⏩"
+titleLabel.TextSize = 14
+titleLabel.Size = UDim2.new(0, 100, 0, 20)
+titleLabel.Position = UDim2.new(0.5, -50, 0, 10)
+titleLabel.AnchorPoint = Vector2.new(0.5, 0)
+titleLabel.Parent = gui
+
+-- Create a TextButton for decreasing speed
+local decreaseSpeedButton = Instance.new("TextButton")
+decreaseSpeedButton.Name = "DecreaseSpeedButton"
+decreaseSpeedButton.Text = "⚡Decrease Speed⚡"
+decreaseSpeedButton.Size = UDim2.new(0, 150, 0, 30)
+decreaseSpeedButton.Position = UDim2.new(0, 20, 0, 40)
+decreaseSpeedButton.Parent = gui
+
+-- Function to decrease speed when button is clicked
+local function decreaseSpeed()
+    -- Decrease the player's speed by 2
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed - 2
+end
+
+-- Connect the function to the button's Click event
+decreaseSpeedButton.MouseButton1Click:Connect(decreaseSpeed)
+
+-- Create a TextButton for decreasing jump power
+local decreaseJumpPowerButton = Instance.new("TextButton")
+decreaseJumpPowerButton.Name = "DecreaseJumpPowerButton"
+decreaseJumpPowerButton.Text = "🌀Decrease Jump Power🌀"
+decreaseJumpPowerButton.Size = UDim2.new(0, 150, 0, 30)
+decreaseJumpPowerButton.Position = UDim2.new(0, 20, 0, 90)
+decreaseJumpPowerButton.Parent = gui
+
+-- Function to decrease jump power when button is clicked
+local function decreaseJumpPower()
+    -- Decrease the player's jump power by 2
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = game.Players.LocalPlayer.Character.Humanoid.JumpPower - 2
+end
+
+-- Connect the function to the button's Click event
+decreaseJumpPowerButton.MouseButton1Click:Connect(decreaseJumpPower)
+
+-- Create a TextButton for decreasing gravity
+local decreaseGravityButton = Instance.new("TextButton")
+decreaseGravityButton.Name = "DecreaseGravityButton"
+decreaseGravityButton.Text = "🌪️Decrease Gravity🌪️"
+decreaseGravityButton.Size = UDim2.new(0, 150, 0, 30)
+decreaseGravityButton.Position = UDim2.new(0, 20, 0, 140)
+decreaseGravityButton.Parent = gui
+
+-- Function to decrease gravity when button is clicked
+local function decreaseGravity()
+    -- Decrease the game's gravity by 2
+    game.Workspace.Gravity = game.Workspace.Gravity - 2
+end
+
+-- Connect the function to the button's Click event
+decreaseGravityButton.MouseButton1Click:Connect(decreaseGravity)
+
+-- Create a TextButton for increasing speed
+local increaseSpeedButton = Instance.new("TextButton")
+increaseSpeedButton.Name = "IncreaseSpeedButton"
+increaseSpeedButton.Text = "⚡Increase Speed⚡"
+increaseSpeedButton.Size = UDim2.new(0, 150, 0, 30)
+increaseSpeedButton.Position = UDim2.new(1, -170, 0, 40)
+increaseSpeedButton.Parent = gui
+
+-- Function to increase speed when button is clicked
+local function increaseSpeed()
+    -- Increase the player's speed by 2
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed + 2
+end
+
+-- Connect the function to the button's Click event
+increaseSpeedButton.MouseButton1Click:Connect(increaseSpeed)
+
+-- Create a TextButton for increasing jump power
+local jumpButton = Instance.new("TextButton")
+jumpButton.Name = "JumpButton"
+jumpButton.Text = "🌀Increase Jump Power🌀"
+jumpButton.Size = UDim2.new(0, 150, 0, 30)
+jumpButton.Position = UDim2.new(1, -170, 0, 90)
+jumpButton.Parent = gui
+
+-- Function to increase jump power when button is clicked
+local function increaseJumpPower()
+    -- Increase the player's jump power by 2
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = game.Players.LocalPlayer.Character.Humanoid.JumpPower + 2
+end
+
+-- Connect the function to the button's Click event
+jumpButton.MouseButton1Click:Connect(increaseJumpPower)
+
+-- Create a TextButton for increasing gravity
+local gravityButton = Instance.new("TextButton")
+gravityButton.Name = "GravityButton"
+gravityButton.Text = "🌪️Increase Gravity🌪️"
+gravityButton.Size = UDim2.new(0, 150, 0, 30)
+gravityButton.Position = UDim2.new(1, -170, 0, 140)
+gravityButton.Parent = gui
+
+-- Function to increase gravity when button is clicked
+local function increaseGravity()
+    -- Increase the game's gravity by 2
+    game.Workspace.Gravity = game.Workspace.Gravity + 2
+end
+
+-- Connect the function to the button's Click event
+gravityButton.MouseButton1Click:Connect(increaseGravity)
